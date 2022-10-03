@@ -1,4 +1,3 @@
-// SPDX-License-Identifier: agpl-3.0
 pragma solidity ^0.8.0;
 
 import {WadRayMath} from "./libraries/math/WadRayMath.sol";
@@ -39,7 +38,7 @@ contract debtToken is ERC20Upgradeable {
     }
 
     /**
-     * @dev Being non transferrable, the debt token does not implement any of the
+     * Being non transferrable, the debt token does not implement any of the
      * standard ERC20 functions for transfer and allowance.
      **/
     function transfer(address recipient, uint256 amount)
@@ -110,8 +109,8 @@ contract debtToken is ERC20Upgradeable {
     }
 
     /**
-     * @dev Calculates the accumulated debt balance of the user
-     * @return The debt balance of the user
+     * Calculates the accumulated debt balance of the user
+     * Return The debt balance of the user
      **/
     function balanceOf(address user)
         public
@@ -132,14 +131,12 @@ contract debtToken is ERC20Upgradeable {
     }
 
     /**
-     * @dev Mints debt token to the `onBehalfOf` address
-     * -  Only callable by the LendingPool
-     * @param user The address receiving the borrowed underlying, being the delegatee in case
+     * Mints debt token to the `onBehalfOf` address
+     * user The address receiving the borrowed underlying, being the delegatee in case
      * of credit delegate, or same as `onBehalfOf` otherwise
-     * @param onBehalfOf The address receiving the debt tokens
-     * @param amount The amount of debt being minted
-     * @param index The variable debt index of the reserve
-     * @return `true` if the the previous balance of the user is 0
+     * amount The amount of debt being minted
+     * index The variable debt index of the reserve
+     * Return `true` if the the previous balance of the user is 0
      **/
     function mint(
         address user,
@@ -168,16 +165,16 @@ contract debtToken is ERC20Upgradeable {
     }
 
     /**
-     * @dev Returns the principal debt balance of the user from
-     * @return The debt balance of the user since the last burn/mint action
+     * Returns the principal debt balance of the user from
+     * Return The debt balance of the user since the last burn/mint action
      **/
     function scaledBalanceOf(address user) public view returns (uint256) {
         return super.balanceOf(user);
     }
 
     /**
-     * @dev Returns the total supply of the variable debt token. Represents the total debt accrued by the users
-     * @return The total supply
+     * Returns the total supply of the variable debt token. Represents the total debt accrued by the users
+     * Return The total supply
      **/
     function totalSupply() public view virtual override returns (uint256) {
         return
@@ -187,18 +184,18 @@ contract debtToken is ERC20Upgradeable {
     }
 
     /**
-     * @dev Returns the scaled total supply of the variable debt token. Represents sum(debt/index)
-     * @return the scaled total supply
+     * Returns the scaled total supply of the variable debt token. Represents sum(debt/index)
+     * Return the scaled total supply
      **/
     function scaledTotalSupply() public view returns (uint256) {
         return super.totalSupply();
     }
 
     /**
-     * @dev Returns the principal balance of the user and principal total supply.
-     * @param user The address of the user
-     * @return The principal balance of the user
-     * @return The principal total supply
+     * Returns the principal balance of the user and principal total supply.
+     * user The address of the user
+     * Return The principal balance of the user
+     * Return The principal total supply
      **/
     function getScaledUserBalanceAndSupply(address user)
         external
@@ -209,14 +206,14 @@ contract debtToken is ERC20Upgradeable {
     }
 
     /**
-     * @dev Returns the address of the underlying asset of this tToken (E.g. WETH for tWETH)
+     * Returns the address of the underlying asset of this tToken (E.g. WETH for tWETH)
      **/
     function UNDERLYING_ASSET_ADDRESS() public view returns (address) {
         return _underlyingAsset;
     }
 
     /**
-     * @dev Returns the address of the lending pool where this tToken is used
+     * Returns the address of the lending pool where this tToken is used
      **/
     function POOL() public view returns (ILendingPool) {
         return _pool;

@@ -1,4 +1,3 @@
-// SPDX-License-Identifier: agpl-3.0
 pragma solidity ^0.8.0;
 
 import {IERC20} from "./interfaces/IERC20.sol";
@@ -99,6 +98,14 @@ contract LendingPool is ILendingPool, LendingPoolStorage {
         emit MintUnbacked(asset, msg.sender, user, amount);
     }
 
+    function getUnbacked(address bridge, address asset)
+        external
+        view
+        returns (uint256)
+    {
+        return _totalUnbacked[bridge][asset];
+    }
+
     function backUnbacked(
         address asset,
         uint256 amount,
@@ -108,6 +115,7 @@ contract LendingPool is ILendingPool, LendingPoolStorage {
             _reserves,
             _bridgeUnbacked[msg.sender],
             _totalUnbacked[msg.sender],
+            _isBacked[msg.sender],
             _lastDebtNumber[msg.sender],
             unbackedList,
             DataTypes.ExecuteBackUnbackedParams({asset: asset, amount: amount})
@@ -129,7 +137,6 @@ contract LendingPool is ILendingPool, LendingPoolStorage {
     ) external override whenNotPaused {
         DepositLogic.executeDeposit(
             _reserves,
-            _reservesList,
             _usersConfig[onBehalfOf],
             DataTypes.ExecuteDepositParams({
                 asset: asset,

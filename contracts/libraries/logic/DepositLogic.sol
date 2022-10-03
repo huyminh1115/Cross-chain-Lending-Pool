@@ -1,4 +1,3 @@
-// SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.0;
 
 import {IERC20} from "../../interfaces/IERC20.sol";
@@ -20,7 +19,6 @@ library DepositLogic {
 
     function executeDeposit(
         mapping(address => DataTypes.ReserveData) storage reservesData,
-        mapping(uint256 => address) storage reservesList,
         DataTypes.UserConfigurationMap storage userConfig,
         DataTypes.ExecuteDepositParams memory params
     ) external {
@@ -55,14 +53,11 @@ library DepositLogic {
     }
 
     /**
-     * @notice Implements the withdraw feature. Through `withdraw()`, users redeem their aTokens for the underlying asset
-     * previously supplied in the Aave protocol.
-     * @dev Emits the `Withdraw()` event.
-     * @dev If the user withdraws everything, `ReserveUsedAsCollateralDisabled()` is emitted.
-     * @param reservesData The state of all the reserves
-     * @param reservesList The addresses of all the active reserves
-     * @param params The additional parameters needed to execute the withdraw function
-     * @return The actual amount withdrawn
+     * If the user withdraws everything, `ReserveUsedAsCollateralDisabled()` is emitted.
+     * reservesData The state of all the reserves
+     * reservesList The addresses of all the active reserves
+     * params The additional parameters needed to execute the withdraw function
+     * Return The actual amount withdrawn
      */
     function executeWithdraw(
         mapping(address => DataTypes.ReserveData) storage reservesData,

@@ -3,19 +3,15 @@ pragma solidity ^0.8.0;
 
 import {DataTypes} from "../types/DataTypes.sol";
 
-/**
- * @title UserConfiguration library
- * @notice Implements the bitmap logic to handle the user configuration
- */
 library UserConfiguration {
     uint256 internal constant BORROWING_MASK =
         0x5555555555555555555555555555555555555555555555555555555555555555;
 
     /**
-     * @dev Sets if the user is borrowing the reserve identified by reserveIndex
-     * @param self The configuration object
-     * @param reserveIndex The index of the reserve in the bitmap
-     * @param borrowing True if the user is borrowing the reserve, false otherwise
+     * Sets if the user is borrowing the reserve identified by reserveIndex
+     * self The configuration object
+     * reserveIndex The index of the reserve in the bitmap
+     * borrowing True if the user is borrowing the reserve, false otherwise
      **/
     function setBorrowing(
         DataTypes.UserConfigurationMap storage self,
@@ -29,10 +25,10 @@ library UserConfiguration {
     }
 
     /**
-     * @dev Sets if the user is using as collateral the reserve identified by reserveIndex
-     * @param self The configuration object
-     * @param reserveIndex The index of the reserve in the bitmap
-     * @param usingAsCollateral True if the user is usin the reserve as collateral, false otherwise
+     * Sets if the user is using as collateral the reserve identified by reserveIndex
+     * self The configuration object
+     * reserveIndex The index of the reserve in the bitmap
+     * usingAsCollateral True if the user is usin the reserve as collateral, false otherwise
      **/
     function setUsingAsCollateral(
         DataTypes.UserConfigurationMap storage self,
@@ -46,10 +42,10 @@ library UserConfiguration {
     }
 
     /**
-     * @dev Used to validate if a user has been using the reserve for borrowing or as collateral
-     * @param self The configuration object
-     * @param reserveIndex The index of the reserve in the bitmap
-     * @return True if the user has been using a reserve for borrowing or as collateral, false otherwise
+     * Used to validate if a user has been using the reserve for borrowing or as collateral
+     * self The configuration object
+     * reserveIndex The index of the reserve in the bitmap
+     * Return True if the user has been using a reserve for borrowing or as collateral, false otherwise
      **/
     function isUsingAsCollateralOrBorrowing(
         DataTypes.UserConfigurationMap memory self,
@@ -60,10 +56,10 @@ library UserConfiguration {
     }
 
     /**
-     * @dev Used to validate if a user has been using the reserve for borrowing
-     * @param self The configuration object
-     * @param reserveIndex The index of the reserve in the bitmap
-     * @return True if the user has been using a reserve for borrowing, false otherwise
+     * Used to validate if a user has been using the reserve for borrowing
+     * self The configuration object
+     * reserveIndex The index of the reserve in the bitmap
+     * Return True if the user has been using a reserve for borrowing, false otherwise
      **/
     function isBorrowing(
         DataTypes.UserConfigurationMap memory self,
@@ -74,10 +70,10 @@ library UserConfiguration {
     }
 
     /**
-     * @dev Used to validate if a user has been using the reserve as collateral
-     * @param self The configuration object
-     * @param reserveIndex The index of the reserve in the bitmap
-     * @return True if the user has been using a reserve as collateral, false otherwise
+     * Used to validate if a user has been using the reserve as collateral
+     * self The configuration object
+     * reserveIndex The index of the reserve in the bitmap
+     * Return True if the user has been using a reserve as collateral, false otherwise
      **/
     function isUsingAsCollateral(
         DataTypes.UserConfigurationMap memory self,
@@ -88,9 +84,9 @@ library UserConfiguration {
     }
 
     /**
-     * @dev Used to validate if a user has been borrowing from any reserve
-     * @param self The configuration object
-     * @return True if the user has been borrowing any reserve, false otherwise
+     * Used to validate if a user has been borrowing from any reserve
+     * self The configuration object
+     * Return True if the user has been borrowing any reserve, false otherwise
      **/
     function isBorrowingAny(DataTypes.UserConfigurationMap memory self)
         internal
@@ -101,9 +97,9 @@ library UserConfiguration {
     }
 
     /**
-     * @dev Used to validate if a user has not been using any reserve
-     * @param self The configuration object
-     * @return True if the user has been borrowing any reserve, false otherwise
+     * Used to validate if a user has not been using any reserve
+     * self The configuration object
+     * Return True if the user has been borrowing any reserve, false otherwise
      **/
     function isEmpty(DataTypes.UserConfigurationMap memory self)
         internal

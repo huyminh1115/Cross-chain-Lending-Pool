@@ -1,4 +1,3 @@
-// SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.0;
 
 import {IERC20} from "../../interfaces/IERC20.sol";
@@ -11,10 +10,6 @@ import {ReserveLogic} from "./ReserveLogic.sol";
 import {PriceOracle} from "../../PriceOracle.sol";
 import {ReserveConfiguration} from "../configuration/ReserveConfiguration.sol";
 
-/**
- * @title BorrowLogic library
- * @notice Implements the base logic for all the actions related to borrowing
- */
 library BorrowLogic {
     using ReserveLogic for DataTypes.ReserveData;
     using UserConfiguration for DataTypes.UserConfigurationMap;
@@ -76,15 +71,10 @@ library BorrowLogic {
     }
 
     /**
-     * @notice Implements the repay feature. Repaying transfers the underlying back to the aToken and clears the
-     * equivalent amount of debt for the user by burning the corresponding debt token. For isolated positions, it also
-     * reduces the isolated debt.
-     * @dev  Emits the `Repay()` event
-     * @param reservesData The state of all the reserves
-     * @param reservesList The addresses of all the active reserves
-     * @param userConfig The user configuration mapping that tracks the supplied/borrowed assets
-     * @param params The additional parameters needed to execute the repay function
-     * @return The actual amount being repaid
+     * reservesData The state of all the reserves
+     * userConfig The user configuration mapping that tracks the supplied/borrowed assets
+     * params The additional parameters needed to execute the repay function
+     * ReturnThe actual amount being repaid
      */
     function executeRepay(
         mapping(address => DataTypes.ReserveData) storage reservesData,

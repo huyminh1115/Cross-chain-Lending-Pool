@@ -1,4 +1,3 @@
-// SPDX-License-Identifier: agpl-3.0
 pragma solidity ^0.8.0;
 
 import {UserConfiguration} from "./libraries/configuration/UserConfiguration.sol";
@@ -33,6 +32,7 @@ contract LendingPoolStorage {
         public _bridgeUnbacked;
     // bridge => last debt number
     mapping(address => uint256) public _lastDebtNumber;
-    // bridge => token => is backed ?
-    mapping(address => mapping(address => bool)) public _isBacked;
+    // bridge => token => numberInlist => is backed ?
+    mapping(address => mapping(address => mapping(uint256 => bool)))
+        public _isBacked;
 }

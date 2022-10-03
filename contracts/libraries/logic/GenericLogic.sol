@@ -1,4 +1,3 @@
-// SPDX-License-Identifier: agpl-3.0
 pragma solidity ^0.8.0;
 
 import {IERC20} from "../../interfaces/IERC20.sol";
@@ -10,10 +9,6 @@ import {PercentageMath} from "../math/PercentageMath.sol";
 import {PriceOracle} from "../../PriceOracle.sol";
 import {DataTypes} from "../types/DataTypes.sol";
 
-/**
- * @title GenericLogic library
- * @title Implements protocol-level logic to calculate and validate the state of a user
- */
 library GenericLogic {
     using ReserveLogic for DataTypes.ReserveData;
     using WadRayMath for uint256;
@@ -37,16 +32,15 @@ library GenericLogic {
     }
 
     /**
-     * @dev Checks if a specific balance decrease is allowed
-     * (i.e. doesn't bring the user borrow position health factor under HEALTH_FACTOR_LIQUIDATION_THRESHOLD)
-     * @param asset The address of the underlying asset of the reserve
-     * @param user The address of the user
-     * @param amount The amount to decrease
-     * @param reservesData The data of all the reserves
-     * @param userConfig The user configuration
-     * @param reserves The list of all the active reserves
-     * @param oracle The address of the oracle contract
-     * @return true if the decrease of the balance is allowed
+     * Checks if a specific balance decrease is allowed
+     * asset The address of the underlying asset of the reserve
+     * user The address of the user
+     * amount The amount to decrease
+     * reservesData The data of all the reserves
+     * userConfig The user configuration
+     * reserves The list of all the active reserves
+     * oracle The address of the oracle contract
+     * Return true if the decrease of the balance is allowed
      **/
     function balanceDecreaseAllowed(
         address asset,
@@ -145,15 +139,15 @@ library GenericLogic {
     }
 
     /**
-     * @dev Calculates the user data across the reserves.
+     * Calculates the user data across the reserves.
      * this includes the total liquidity/collateral/borrow balances in USD,
      * the average Loan To Value, the average Liquidation Ratio, and the Health factor.
-     * @param user The address of the user
-     * @param reservesData Data of all the reserves
-     * @param userConfig The configuration of the user
-     * @param reserves The list of the available reserves
-     * @param oracle The price oracle address
-     * @return The total collateral and total debt of the user in USD, the avg ltv, liquidation threshold and the HF
+     * user The address of the user
+     * reservesData Data of all the reserves
+     * userConfig The configuration of the user
+     * reserves The list of the available reserves
+     * oracle The price oracle address
+     * Return The total collateral and total debt of the user in USD, the avg ltv, liquidation threshold and the HF
      **/
     function calculateUserAccountData(
         address user,
@@ -254,11 +248,11 @@ library GenericLogic {
     }
 
     /**
-     * @dev Calculates the health factor from the corresponding balances
-     * @param totalCollateralInUSD The total collateral in USD
-     * @param totalDebtInUSD The total debt in USD
-     * @param liquidationThreshold The avg liquidation threshold
-     * @return The health factor calculated from the balances provided
+     * Calculates the health factor from the corresponding balances
+     * totalCollateralInUSD The total collateral in USD
+     * totalDebtInUSD The total debt in USD
+     * liquidationThreshold The avg liquidation threshold
+     * Return The health factor calculated from the balances provided
      **/
     function calculateHealthFactorFromBalances(
         uint256 totalCollateralInUSD,
@@ -274,12 +268,12 @@ library GenericLogic {
     }
 
     /**
-     * @dev Calculates the equivalent amount in USD that an user can borrow, depending on the available collateral and the
+     * Calculates the equivalent amount in USD that an user can borrow, depending on the available collateral and the
      * average Loan To Value
-     * @param totalCollateralInUSD The total collateral in USD
-     * @param totalDebtInUSD The total borrow balance
-     * @param ltv The average loan to value
-     * @return the amount available to borrow in USD for the user
+     * totalCollateralInUSD The total collateral in USD
+     * totalDebtInUSD The total borrow balance
+     * ltv The average loan to value
+     * Return the amount available to borrow in USD for the user
      **/
 
     function calculateAvailableBorrowsUSD(

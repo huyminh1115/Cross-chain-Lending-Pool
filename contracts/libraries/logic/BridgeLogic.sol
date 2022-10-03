@@ -1,4 +1,3 @@
-// SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.0;
 
 import {ReserveLogic} from "./ReserveLogic.sol";
@@ -19,10 +18,6 @@ library BridgeLogic {
     using WadRayMath for uint256;
     using PercentageMath for uint256;
 
-    /**
-     * @notice Mint unbacked aTokens to a user and updates the unbacked for the reserve.
-     * @dev Essentially a supply without transferring the underlying.
-     **/
     function executeMintUnbacked(
         mapping(address => DataTypes.ReserveData) storage reservesData,
         mapping(address => mapping(uint256 => DataTypes.UnBackedInfor))
@@ -40,9 +35,12 @@ library BridgeLogic {
 
         uint256 unbackedMintCap = reserve.unbackedCap;
 
-        uint256 unbacked = reserve.unbacked += params.amount;
+        reserve.unbacked += params.amount;
 
-        require(unbacked <= unbackedMintCap, "UNBACKED_MINT_CAP_EXCEEDED");
+        require(
+            reserve.unbacked <= unbackedMintCap,
+            "UNBACKED_MINT_CAP_EXCEEDED"
+        );
 
         address cTokenAddress = reserve.cTokenAddress;
         uint256 bridgeBalance = cToken(cTokenAddress).balanceOf(msg.sender);
@@ -74,14 +72,12 @@ library BridgeLogic {
         }
     }
 
-    /**
-     * @notice Back the current unbacked with `amount` and pay `fee`.
-     **/
     function executeBackUnbacked(
         mapping(address => DataTypes.ReserveData) storage reservesData,
         mapping(address => mapping(uint256 => DataTypes.UnBackedInfor))
             storage unBackedInfor,
         mapping(address => uint256) storage totalUnbacked,
+        mapping(address => mapping(uint256 => bool)) storage isBacked,
         uint256 debtNumber,
         uint256[] memory unbackedList,
         DataTypes.ExecuteBackUnbackedParams memory params
@@ -99,12 +95,15 @@ library BridgeLogic {
         uint256 fee;
         for (uint256 i; i < unbackedList.length; i++) {
             require(unbackedList[i] < debtNumber, "NOT_EXISTS_UNBACKED_INFO");
+            require(!isBacked[params.asset][unbackedList[i]], "BACKED");
+            isBacked[params.asset][unbackedList[i]] = true;
             DataTypes.UnBackedInfor memory _unbackInfo = unBackedInfor[
                 params.asset
             ][unbackedList[i]];
             fee +=
-                _unbackInfo.cTokenAmount *
-                (liquidityIndex / _unbackInfo.oldIndex - 1);
+                (_unbackInfo.cTokenAmount *
+                    (liquidityIndex.rayDiv(_unbackInfo.oldIndex) - 1e27)) /
+                1e27;
         }
 
         uint256 added = backingAmount + fee;

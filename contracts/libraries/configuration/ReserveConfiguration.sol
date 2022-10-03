@@ -3,10 +3,6 @@ pragma solidity ^0.8.0;
 
 import {DataTypes} from "../types/DataTypes.sol";
 
-/**
- * @title ReserveConfiguration library
- * @notice Implements the bitmap logic to handle the reserve configuration
- */
 library ReserveConfiguration {
     uint256 constant LTV_MASK =                   0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000; // prettier-ignore
     uint256 constant LIQUIDATION_THRESHOLD_MASK = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFF; // prettier-ignore
@@ -15,7 +11,7 @@ library ReserveConfiguration {
     uint256 constant ACTIVE_MASK =                0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFFFFFFFFFF; // prettier-ignore
     uint256 constant RESERVE_FACTOR_MASK =        0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFF; // prettier-ignore
 
-    /// @dev For the LTV, the start bit is 0 (up to 15), hence no bitshifting is needed
+    /// For the LTV, the start bit is 0 (up to 15), hence no bitshifting is needed
     uint256 constant LIQUIDATION_THRESHOLD_START_BIT_POSITION = 16;
     uint256 constant LIQUIDATION_BONUS_START_BIT_POSITION = 32;
     uint256 constant RESERVE_DECIMALS_START_BIT_POSITION = 48;
@@ -29,9 +25,9 @@ library ReserveConfiguration {
     uint256 constant MAX_VALID_RESERVE_FACTOR = 65535;
 
     /**
-     * @dev Sets the Loan to Value of the reserve
-     * @param self The reserve configuration
-     * @param ltv the new ltv
+     * Sets the Loan to Value of the reserve
+     * self The reserve configuration
+     * ltv the new ltv
      **/
     function setLtv(DataTypes.ReserveConfigurationMap memory self, uint256 ltv)
         internal
@@ -43,9 +39,9 @@ library ReserveConfiguration {
     }
 
     /**
-     * @dev Gets the Loan to Value of the reserve
-     * @param self The reserve configuration
-     * @return The loan to value
+     * Gets the Loan to Value of the reserve
+     * self The reserve configuration
+     * returnThe loan to value
      **/
     function getLtv(DataTypes.ReserveConfigurationMap storage self)
         internal
@@ -56,9 +52,9 @@ library ReserveConfiguration {
     }
 
     /**
-     * @dev Sets the liquidation threshold of the reserve
-     * @param self The reserve configuration
-     * @param threshold The new liquidation threshold
+     * Sets the liquidation threshold of the reserve
+     * self The reserve configuration
+     * threshold The new liquidation threshold
      **/
     function setLiquidationThreshold(
         DataTypes.ReserveConfigurationMap memory self,
@@ -75,9 +71,9 @@ library ReserveConfiguration {
     }
 
     /**
-     * @dev Gets the liquidation threshold of the reserve
-     * @param self The reserve configuration
-     * @return The liquidation threshold
+     * Gets the liquidation threshold of the reserve
+     * self The reserve configuration
+     * returnThe liquidation threshold
      **/
     function getLiquidationThreshold(
         DataTypes.ReserveConfigurationMap storage self
@@ -88,9 +84,9 @@ library ReserveConfiguration {
     }
 
     /**
-     * @dev Sets the liquidation bonus of the reserve
-     * @param self The reserve configuration
-     * @param bonus The new liquidation bonus
+     * Sets the liquidation bonus of the reserve
+     * self The reserve configuration
+     * bonus The new liquidation bonus
      **/
     function setLiquidationBonus(
         DataTypes.ReserveConfigurationMap memory self,
@@ -104,9 +100,9 @@ library ReserveConfiguration {
     }
 
     /**
-     * @dev Gets the liquidation bonus of the reserve
-     * @param self The reserve configuration
-     * @return The liquidation bonus
+     * Gets the liquidation bonus of the reserve
+     * self The reserve configuration
+     * return The liquidation bonus
      **/
     function getLiquidationBonus(DataTypes.ReserveConfigurationMap storage self)
         internal
@@ -119,9 +115,9 @@ library ReserveConfiguration {
     }
 
     /**
-     * @dev Sets the decimals of the underlying asset of the reserve
-     * @param self The reserve configuration
-     * @param decimals The decimals
+     * Sets the decimals of the underlying asset of the reserve
+     * self The reserve configuration
+     * decimals The decimals
      **/
     function setDecimals(
         DataTypes.ReserveConfigurationMap memory self,
@@ -135,9 +131,9 @@ library ReserveConfiguration {
     }
 
     /**
-     * @dev Gets the decimals of the underlying asset of the reserve
-     * @param self The reserve configuration
-     * @return The decimals of the asset
+     * Gets the decimals of the underlying asset of the reserve
+     * self The reserve configuration
+     * return The decimals of the asset
      **/
     function getDecimals(DataTypes.ReserveConfigurationMap storage self)
         internal
@@ -149,9 +145,9 @@ library ReserveConfiguration {
     }
 
     /**
-     * @dev Sets the active state of the reserve
-     * @param self The reserve configuration
-     * @param active The active state
+     * Sets the active state of the reserve
+     * self The reserve configuration
+     * active The active state
      **/
     function setActive(
         DataTypes.ReserveConfigurationMap memory self,
@@ -163,9 +159,9 @@ library ReserveConfiguration {
     }
 
     /**
-     * @dev Gets the active state of the reserve
-     * @param self The reserve configuration
-     * @return The active state
+     * Gets the active state of the reserve
+     * self The reserve configuration
+     * return The active state
      **/
     function getActive(DataTypes.ReserveConfigurationMap storage self)
         internal
@@ -176,9 +172,9 @@ library ReserveConfiguration {
     }
 
     /**
-     * @dev Sets the reserve factor of the reserve
-     * @param self The reserve configuration
-     * @param reserveFactor The reserve factor
+     * Sets the reserve factor of the reserve
+     * self The reserve configuration
+     * reserveFactor The reserve factor
      **/
     function setReserveFactor(
         DataTypes.ReserveConfigurationMap memory self,
@@ -195,9 +191,9 @@ library ReserveConfiguration {
     }
 
     /**
-     * @dev Gets the reserve factor of the reserve
-     * @param self The reserve configuration
-     * @return The reserve factor
+     * Gets the reserve factor of the reserve
+     * self The reserve configuration
+     * return The reserve factor
      **/
     function getReserveFactor(DataTypes.ReserveConfigurationMap storage self)
         internal
@@ -210,9 +206,9 @@ library ReserveConfiguration {
     }
 
     /**
-     * @dev Gets the configuration paramters of the reserve
-     * @param self The reserve configuration
-     * @return The state params representing ltv, liquidation threshold, liquidation bonus, the reserve decimals
+     * Gets the configuration paramters of the reserve
+     * self The reserve configuration
+     * return The state params representing ltv, liquidation threshold, liquidation bonus, the reserve decimals
      **/
     function getParams(DataTypes.ReserveConfigurationMap storage self)
         internal

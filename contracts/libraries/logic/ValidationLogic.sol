@@ -23,9 +23,9 @@ library ValidationLogic {
     using UserConfiguration for DataTypes.UserConfigurationMap;
 
     /**
-     * @dev Validates a deposit action
-     * @param reserve The reserve object on which the user is depositing
-     * @param amount The amount to be deposited
+     * Validates a deposit action
+     * reserve The reserve object on which the user is depositing
+     * amount The amount to be deposited
      */
     function validateDeposit(
         DataTypes.ReserveData storage reserve,
@@ -36,15 +36,15 @@ library ValidationLogic {
     }
 
     /**
-     * @dev Validates a withdraw action
-     * @param reserveAddress The address of the reserve
-     * @param amount The amount to be withdrawn
-     * @param userBalance The balance of the user
-     * @param reservesData The reserves state
-     * @param userConfig The user configuration
-     * @param reserves The addresses of the reserves
-     * @param reservesCount The number of reserves
-     * @param oracle The price oracle
+     * Validates a withdraw action
+     * reserveAddress The address of the reserve
+     * amount The amount to be withdrawn
+     * userBalance The balance of the user
+     * reservesData The reserves state
+     * userConfig The user configuration
+     * reserves The addresses of the reserves
+     * reservesCount The number of reserves
+     * oracle The price oracle
      */
     function validateWithdraw(
         address reserveAddress,
@@ -89,17 +89,16 @@ library ValidationLogic {
     }
 
     /**
-     * @dev Validates a borrow action
-     * @param asset The address of the asset to borrow
-     * @param reserve The reserve state from which the user is borrowing
-     * @param userAddress The address of the user
-     * @param amount The amount to be borrowed
-     * @param amountInUSD The amount to be borrowed, in USD
-     * @param reservesData The state of all the reserves
-     * @param userConfig The state of the user for the specific reserve
-     * @param reserves The addresses of all the active reserves
-     * @param reservesCount The number of reserves
-     * @param oracle The price oracle
+     * Validates a borrow action
+     * reserve The reserve state from which the user is borrowing
+     * userAddress The address of the user
+     * amount The amount to be borrowed
+     * amountInUSD The amount to be borrowed, in USD
+     * reservesData The state of all the reserves
+     * userConfig The state of the user for the specific reserve
+     * reserves The addresses of all the active reserves
+     * reservesCount The number of reserves
+     * oracle The price oracle
      */
 
     function validateBorrow(
@@ -153,11 +152,11 @@ library ValidationLogic {
     }
 
     /**
-     * @dev Validates a repay action
-     * @param reserve The reserve state from which the user is repaying
-     * @param amountSent The amount sent for the repayment. Can be an actual value or uint(-1)
-     * @param onBehalfOf The address of the user msg.sender is repaying for
-     * @param variableDebt The borrow balance of the user
+     * Validates a repay action
+     * reserve The reserve state from which the user is repaying
+     * amountSent The amount sent for the repayment. Can be an actual value or uint(-1)
+     * onBehalfOf The address of the user msg.sender is repaying for
+     * variableDebt The borrow balance of the user
      */
     function validateRepay(
         DataTypes.ReserveData storage reserve,
@@ -180,12 +179,12 @@ library ValidationLogic {
     }
 
     /**
-     * @dev Validates the liquidation action
-     * @param collateralReserve The reserve data of the collateral
-     * @param principalReserve The reserve data of the principal
-     * @param userConfig The user configuration
-     * @param userHealthFactor The user's health factor
-     * @param userVariableDebt Total variable debt balance of the user
+     * Validates the liquidation action
+     * collateralReserve The reserve data of the collateral
+     * principalReserve The reserve data of the principal
+     * userConfig The user configuration
+     * userHealthFactor The user's health factor
+     * userVariableDebt Total variable debt balance of the user
      **/
     function validateLiquidationCall(
         DataTypes.ReserveData storage collateralReserve,
@@ -226,13 +225,13 @@ library ValidationLogic {
     }
 
     /**
-     * @dev Validates an tToken transfer
-     * @param from The user from which the tTokens are being transferred
-     * @param reservesData The state of all the reserves
-     * @param userConfig The state of the user for the specific reserve
-     * @param reserves The addresses of all the active reserves
-     * @param reservesCount The counting of reserves
-     * @param oracle The price oracle
+     * Validates an tToken transfer
+     * from The user from which the tTokens are being transferred
+     * reservesData The state of all the reserves
+     * userConfig The state of the user for the specific reserve
+     * reserves The addresses of all the active reserves
+     * reservesCount The counting of reserves
+     * oracle The price oracle
      */
     function validateTransfer(
         address from,

@@ -7,7 +7,7 @@ async function deployLendingPool() {
     
     const cTokenAddress = "0x16C62df6eF5A3a56CF206CA572Ca89dEA05A6F8B";
     const debtTokenAddress = "0xbAB929AAd75Be7B581CD5540e7608A8778d59156";
-    const LendingPoolConfigurator = "0xEAe9cD7ed5c81bD9090887B69e9D77244B6B6805";
+    const LendingPoolConfigurator = "0xCbbC902122E8b270E3f11ef6151d676bd6b480CC";
     var initialReserves = ["DAI", "BTCB"];
     var reserves = ReserveAssets;
     var reserveInterestRateStrategyAddressList = [];

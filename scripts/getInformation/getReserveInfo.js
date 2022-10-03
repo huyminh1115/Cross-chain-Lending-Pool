@@ -3,7 +3,7 @@ const { ReserveAssets } = require("../data/reserveAssets")
 
 async function main() {    
     const accounts = await hre.ethers.getSigners();
-    const lendingPoolAddress = "0x6aEC229Ed453d7a417fe0B33dB1867A76F81E8d6";
+    const lendingPoolAddress = "0x65aE1D13122Fd42c4e6656e1F3859E3f74603f79";
     const lendingPool  = await hre.ethers.getContractAt("LendingPool", lendingPoolAddress);    
     var reserveList = await lendingPool.getReservesList();
     console.log("ReservesList in lending pool: ", reserveList); 

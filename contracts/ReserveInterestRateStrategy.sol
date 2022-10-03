@@ -1,4 +1,3 @@
-// SPDX-License-Identifier: agpl-3.0
 pragma solidity ^0.8.0;
 
 import {WadRayMath} from "./libraries/math/WadRayMath.sol";
@@ -100,10 +99,11 @@ contract ReserveInterestRateStrategy {
         vars.currentLiquidityRate = 0;
         uint256 availableLiquidityPlusDebt = availableLiquidity +
             vars.totalDebt;
+        // real usageRatio
         vars.borrowUsageRatio = vars.totalDebt == 0
             ? 0
             : vars.totalDebt.rayDiv(availableLiquidityPlusDebt);
-
+        // fake usageRatio
         vars.supplyUsageRatio = vars.totalDebt == 0
             ? 0
             : vars.totalDebt.rayDiv(

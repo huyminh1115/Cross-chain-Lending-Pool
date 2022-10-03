@@ -1,4 +1,3 @@
-// SPDX-License-Identifier: agpl-3.0
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol";
@@ -13,7 +12,7 @@ import {cToken} from "./cToken.sol";
 /**
  * @title LendingPoolConfigurator contract
  * @author Trava
- * @dev Implements the configuration methods for the Trava protocol
+ * Implements the configuration methods for the Trava protocol
  **/
 
 contract LendingPoolConfigurator {
@@ -57,9 +56,9 @@ contract LendingPoolConfigurator {
     }
 
     /**
-     * @dev Initializes reserves in batch
+     * Initializes reserves in batch
      * It includes 3 steps: _initReserve, _configureReserveAsCollateral, _setReserveFactor
-     * @param input The InitReserveInput, see the detail in ILendingPoolConfigurator
+     * input The InitReserveInput, see the detail in ILendingPoolConfigurator
      **/
     function batchInitReserve(InitReserveInput[] calldata input)
         external
@@ -79,7 +78,7 @@ contract LendingPoolConfigurator {
     }
 
     /**
-     * @dev Initializes reserve
+     * Initializes reserve
      **/
     function _initReserve(ILendingPool _pool, InitReserveInput calldata input)
         internal
@@ -135,12 +134,12 @@ contract LendingPoolConfigurator {
     }
 
     /**
-     * @dev Configures the reserve collateralization parameters
+     * Configures the reserve collateralization parameters
      * all the values are expressed in percentages with two decimals of precision. A valid value is 10000, which means 100.00%
-     * @param asset The address of the underlying asset of the reserve
-     * @param ltv The loan to value of the asset when used as collateral
-     * @param liquidationThreshold The threshold at which loans using this asset as collateral will be considered undercollateralized
-     * @param liquidationBonus The bonus liquidators receive to liquidate this asset. The values is always above 100%. A value of 105%
+     * asset The address of the underlying asset of the reserve
+     * ltv The loan to value of the asset when used as collateral
+     * liquidationThreshold The threshold at which loans using this asset as collateral will be considered undercollateralized
+     * liquidationBonus The bonus liquidators receive to liquidate this asset. The values is always above 100%. A value of 105%
      * means the liquidator will receive a 5% bonus
      **/
     function _configureReserveAsCollateral(
@@ -202,8 +201,8 @@ contract LendingPoolConfigurator {
     }
 
     /**
-     * @dev Activates a reserve
-     * @param asset The address of the underlying asset of the reserve
+     * Activates a reserve
+     * asset The address of the underlying asset of the reserve
      **/
     function activateReserve(address asset) external onlyPoolOwner {
         DataTypes.ReserveConfigurationMap memory currentConfig = pool
@@ -215,8 +214,8 @@ contract LendingPoolConfigurator {
     }
 
     /**
-     * @dev Deactivates a reserve
-     * @param asset The address of the underlying asset of the reserve
+     * Deactivates a reserve
+     * asset The address of the underlying asset of the reserve
      **/
     function deactivateReserve(address asset) external onlyPoolOwner {
         _checkNoLiquidity(asset);
@@ -230,9 +229,9 @@ contract LendingPoolConfigurator {
     }
 
     /**
-     * @dev Updates the reserve factor of a reserve
-     * @param asset The address of the underlying asset of the reserve
-     * @param reserveFactor The new reserve factor of the reserve
+     * Updates the reserve factor of a reserve
+     * asset The address of the underlying asset of the reserve
+     * reserveFactor The new reserve factor of the reserve
      **/
     function _setReserveFactor(address asset, uint256 reserveFactor) internal {
         DataTypes.ReserveConfigurationMap memory currentConfig = pool
@@ -251,9 +250,9 @@ contract LendingPoolConfigurator {
     }
 
     /**
-     * @dev Sets the interest rate strategy of a reserve
-     * @param asset The address of the underlying asset of the reserve
-     * @param rateStrategyAddress The new address of the interest strategy contract
+     * Sets the interest rate strategy of a reserve
+     * asset The address of the underlying asset of the reserve
+     * rateStrategyAddress The new address of the interest strategy contract
      **/
     function setReserveInterestRateStrategyAddress(
         address asset,
@@ -263,8 +262,8 @@ contract LendingPoolConfigurator {
     }
 
     /**
-     * @dev pauses or unpauses all the actions of the protocol, including tToken transfers
-     * @param val true if protocol needs to be paused, false otherwise
+     * pauses or unpauses all the actions of the protocol, including tToken transfers
+     * val true if protocol needs to be paused, false otherwise
      **/
     function setPoolPause(bool val) external onlyPoolOwner {
         pool.setPause(val);
